@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">LitReview</h1>
+                <p class="lead mb-0">Profil of: {{author.username}}</p>
+            </div>
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8 offset-lg-2">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Book</th>
+                                    <th scope="col">Headline</th>
+                                    <th scope="col">Review</th>
+                                    <th scope="col">Note</th>
+                                    <th scope="col">Books link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for review in reviews %}
+                                <tr>
+                                    <th>{{review.ticket.title}}</th>
+                                    <th>{{review.headline}}</th>
+                                    <td>{{review.body}}</td>
+                                    <td>{{review.rating}}★</td>
+                                    <td><a href="{% url 'ticket_detail' review.ticket.id %}" class="btn btn-secondary">Read</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

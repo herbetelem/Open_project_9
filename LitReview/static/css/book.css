@@ -1,0 +1,7 @@
+img {
+    width: 70px;
+}
+.ticket_box {
+    background-color: rgba(230, 230, 230, 0.5);
+    display: flex;
+}

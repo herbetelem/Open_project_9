@@ -1,0 +1,8 @@
+.review_box {
+    background-color: rgba(230, 230, 230, 0.5);
+    display: flex;
+}
+
+.second_part_box_review img{
+    width: 100%;
+}

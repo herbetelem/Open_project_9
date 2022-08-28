@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">LitReview</h1>
+                <p class="lead mb-0">The site of all books reviews</p>
+            </div>
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for review in reviews %}
+                        <div class="col-lg-6">
+                            <!-- Blog post-->
+                            <div class="card mb-4">
+                                <div class="card-body review_box">
+                                    <div class="col-8">
+                                        <h2>{{review.headline}} {{review.rating}}★</h2>
+                                        <p>Author: {{review.user.username}}</p>
+                                        <button class="btn btn-secondary">Read </button>
+                                    </div>
+                                    <div class="col-4 second_part_box_review">
+                                        <img src="../{{review.ticket.image}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

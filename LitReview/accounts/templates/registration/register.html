@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container px-5 my-5">
+        <form action="." method="post" id="contactForm" data-sb-form-api-token="API_TOKEN">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                {{user_form.username}}
+                <label for="{{user_form.username.id_for_label}}">Username</label>
+                <div class="invalid-feedback" data-sb-feedback="username:required">Username is required.</div>
+            </div>
+            <div class="form-floating mb-3">
+                {{user_form.firstname}}
+                <label for="{{user_form.firstname.id_for_label}}">First Name</label>
+                <div class="invalid-feedback" data-sb-feedback="firstname:required">First Name is required.</div>
+            </div>
+            <div class="form-floating mb-3">
+                {{user_form.lastname}}
+                <label for="{{user_form.lastname.id_for_label}}">Last Name</label>
+                <div class="invalid-feedback" data-sb-feedback="lastname:required">Last Name is required.</div>
+            </div>
+            <div class="form-floating mb-3">
+                {{user_form.email}}
+                <label for="{{user_form.email.id_for_label}}">Email Adresse</label>
+                <div class="invalid-feedback" data-sb-feedback="email:required">Email Adresse is required.</div>
+                <div class="invalid-feedback" data-sb-feedback="email:email">Email Adresse Email is not valid.</div>
+            </div>
+            <div class="form-floating mb-3">
+                {{user_form.password}}
+                <label for="{{user_form.password.id_for_label}}">Password</label>
+                <div class="invalid-feedback" data-sb-feedback="password:required">Password is required.</div>
+            </div>
+            <div class="form-floating mb-3">
+                {{user_form.confirm_password}}
+                <label for="{{user_form.confirm_password.id_for_label}}">Confirm Password</label>
+                <div class="invalid-feedback" data-sb-feedback="confirmPassword:required">Confirm Password is required.</div>
+            </div>
+            <div class="d-none" id="submitSucessMessage">
+                <div class="text-center mb-3">
+                    <div class="fw-bolder">Form submission successfull!</div>
+                    <p>To activate this form, sign up at</p>
+                    <a href="#"></a>
+                </div>
+            </div>
+            <div class="d-none" id="submitErrorMessage">
+                <div class="text-center mb-3 text-danger">Error sending message!</div>
+            </div>
+            <div class="d-grid">
+                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+{% endblock content %}
