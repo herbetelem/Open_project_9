@@ -14,18 +14,18 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('ticket_list')
+                return redirect('home_page')
             else:
                 return render(request, 'registration/login.html', {})
         else:
             return render(request, 'registration/login.html', {})
     else:
-        return redirect('post_list')
+        return redirect('home_page')
 
 
 def logout_view(request):
     logout(request)
-    return redirect('ticket_list')
+    return redirect('home_page')
 
 
 def register_view(request):

@@ -4,10 +4,8 @@
     <!-- Page header with logo and tagline-->
     <header class="py-5 bg-light border-bottom mb-4">
         <div class="container">
-            <div class="text-center my-5">
-                <h1 class="fw-bolder">LitReview</h1>
-                <p class="lead mb-0">The site of all books reviews</p>
-            </div>
+            <h1 class="fw-bolder">Author Detail</h1>
+            <p class="lead mb-0">Profil of: {{author.username}}</p>
         </div>
     </header>
     <!-- Page content-->
@@ -20,19 +18,21 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Number of Review</th>
-                                    <th scope="col">average grade</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Book</th>
+                                    <th scope="col">Headline</th>
+                                    <th scope="col">Review</th>
+                                    <th scope="col">Note</th>
+                                    <th scope="col">Books link</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for author in authors %}
+                                {% for review in reviews %}
                                 <tr>
-                                    <th>{{author.username}}</th>
-                                    <td>{{author.nb_post_review}}</td>
-                                    <td>{{author.moy_review}}</td>
-                                    <td><a href="{% url 'author_detail' author.id %}" class="btn btn-secondary">Read</a></td>
+                                    <th>{{review.ticket.title}}</th>
+                                    <th>{{review.headline}}</th>
+                                    <td>{{review.body}}</td>
+                                    <td>{{review.rating}}★</td>
+                                    <td><a href="{% url 'ticket_detail' review.ticket.id %}" class="btn btn-secondary">Read</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

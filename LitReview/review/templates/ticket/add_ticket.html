@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <h1 class="fw-bolder">
+                {% if request.resolver_match.view_name == 'edit_ticket' %}
+                Edit Ticket
+                {% else %}
+                Add Ticket
+                {% endif %}
+            </h1>
+            {% if request.resolver_match.view_name == 'edit_ticket' %}
+                <a href="{%url 'delete_ticket' ticket.id %}" class="btn btn-danger">Delete this Ticket</a>
+            {% endif %}
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <form action="." method="post" Enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="{{form.title.id_for_label}}">Title</label>
+                        <div class="col-sm-10">
+                            {{form.title}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="{{form.author.id_for_label}}">Author</label>
+                        <div class="col-sm-10">
+                            {{form.author}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="{{form.description.id_for_label}}">Description</label>
+                        <div class="col-sm-10">
+                            {{form.description}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="{{form.image.id_for_label}}">Cover</label>
+                        <div class="col-sm-10">
+                            {{form.image}}
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

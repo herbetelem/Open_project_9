@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <h1 class="fw-bolder">Subscription</h1>
+            <p class="lead mb-0">The list of all follow/follower</p>
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8 offset-lg-2">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Following</h2>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col-6">Username</th>
+                                    <th scope="col-3">action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for following in followings %}
+                                <tr>
+                                    <td>{{following.followed_user.username}}</td>
+                                    <td>
+                                        <a href="{% url 'author_detail' following.followed_user.id %}" class="btn btn-secondary">Read</a>
+                                        <a href="{% url 'unsubscribe_link' following.followed_user.id %}" class="btn btn-secondary">Unfollow</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Follower</h2>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col-6">Username</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for follower in followers %}
+                                <tr>
+                                    <td>{{follower.user.username}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

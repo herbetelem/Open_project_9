@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="py-5 bg-light border-bottom mb-4 header_home_page">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">LitReview</h1>
+            <p class="lead mb-0">Welcome on the flux page</p>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <a class="btn btn-primary btn-lg col-5" href="{% url 'add_ticket' %}">Ask a Review</a>
+        <a class="btn btn-primary btn-lg col-5 offset-2" href="{%url 'add_review' %}">Create a Review</a>
+    </div>
+</div>
+{% endblock content %}

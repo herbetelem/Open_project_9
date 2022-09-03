@@ -1,0 +1,7 @@
+.form_radio {
+    display: inline-flex;
+}
+
+.form_radio div {
+    margin-left: 5em;
+}

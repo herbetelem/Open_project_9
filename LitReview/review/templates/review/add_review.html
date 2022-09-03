@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <h1 class="fw-bolder">
+                {% if request.resolver_match.view_name == 'edit_review' %}
+                Edit Review
+                {% else %}
+                Add Review
+                {% endif %}
+            </h1>
+            {% if request.resolver_match.view_name == 'edit_review' %}
+                <button type="button" class="btn btn-danger">Danger</button>
+            {% endif %}
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <form action="." method="post" Enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {% include "forms/ticket.html"%}
+                    <hr class="my-4">
+                    {% include "forms/review.html"%}
+
+
+                    <div class="row mb-5 mt-5">
+                        <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

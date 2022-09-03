@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import UserFollows, UserTheme
 
 class RegistrationForm(forms.ModelForm):
     username = forms.CharField(label="Username", max_length=250, help_text='', required=True,
@@ -18,3 +19,13 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
+
+class UserFollowsForm(forms.ModelForm):
+    class Meta:
+        model = UserFollows
+        fields = "__all__"
+
+class UserThemeForm(forms.ModelForm):
+    class Meta:
+        model = UserTheme
+        fields = ('theme',)

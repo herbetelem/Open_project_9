@@ -4,10 +4,8 @@
     <!-- Page header with logo and tagline-->
     <header class="py-5 bg-light border-bottom mb-4">
         <div class="container">
-            <div class="text-center my-5">
-                <h1 class="fw-bolder">LitReview</h1>
-                <p class="lead mb-0">The site of all books reviews</p>
-            </div>
+            <h1 class="fw-bolder">List of Book</h1>
+            <p class="lead mb-0">The site of all books reviews</p>
         </div>
     </header>
     <!-- Page content-->
@@ -25,7 +23,16 @@
                                         <div class="small text-muted">{{ticket.user.name}}</div>
                                         <h2 class="card-title h4">{{ticket.title}}</h2>
                                         <p>{{ticket.author}}</p>
-                                        <a class="btn btn-secondary" href="{% url 'ticket_detail' ticket.id %}">Read</a>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <a class="btn btn-secondary" href="{% url 'ticket_detail' ticket.id %}">Read</a>
+                                            </div>
+                                            {% if user == ticket.user %}
+                                            <div class="col-2 offset-2">
+                                                <a class="btn btn-secondary" href="{% url 'edit_ticket' ticket.id %}">Edit</a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <div class="col-4 section_image">
                                         <img src="../{{ticket.image}}"/>

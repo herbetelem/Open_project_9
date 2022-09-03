@@ -10,6 +10,9 @@
 
     {% comment %} ------------------- CSS PART ------------------- {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% if request.resolver_match.view_name == 'home_page' %}
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endif %}
     {% if request.resolver_match.view_name == 'ticket_list' %}
         <link rel="stylesheet" href="{% static 'css/book.css' %}">
     {% endif %}
@@ -19,10 +22,23 @@
     {% if request.resolver_match.view_name == 'author_list' %}
         <link rel="stylesheet" href="{% static 'css/author.css' %}">
     {% endif %}
+    {% if request.resolver_match.view_name == 'subscription_page' %}
+        <link rel="stylesheet" href="{% static 'css/subscribe.css' %}">
+    {% endif %}
     {% if request.resolver_match.view_name == 'ticket_detail' %}
         <link rel="stylesheet" href="{% static 'css/ticket_d.css' %}">
     {% endif %}
-    <link href="https://bootswatch.com/5/{{theme.theme}}/bootstrap.min.css" rel="stylesheet">
+    {% if request.resolver_match.view_name == 'add_review' %}
+        <link rel="stylesheet" href="{% static 'css/add_review.css' %}">
+    {% endif %}
+    {% if request.resolver_match.view_name == 'edit_review' %}
+        <link rel="stylesheet" href="{% static 'css/add_review.css' %}">
+    {% endif %}
+    {% if user.is_authenticated %}
+        <link href="https://bootswatch.com/5/{{theme.theme}}/bootstrap.min.css" rel="stylesheet">
+    {% else %}
+        <link href="https://bootswatch.com/5/flatly/bootstrap.min.css" rel="stylesheet">
+    {% endif %}
 
     {% comment %} ------------------- JS PART ------------------- {% endcomment %}
     <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
@@ -37,14 +53,26 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{%url 'home_page' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{%url 'review_list' %}">Review</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{%url 'ticket_list' %}">Books</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{%url 'author_list' %}">Author</a></li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{%url 'logout_view' %}">Déconnexion</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'review_list' %}">Review</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'ticket_list' %}">Books</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'author_list' %}">Author</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{%url 'profile_page' user.id %}">My Profile</a>
+                                <a class="dropdown-item" href="{%url 'subscription_page' user.id %}">Subscription</a>
+                                <a class="dropdown-item" href="{%url 'logout_view' %}">Logout</a>
+                            </div>
+                        </li>
                     {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{%url 'login_view' %}">Se Connecter</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{%url 'register_view' %}">S'inscrire</a></li
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{%url 'login_view' %}">Login</a>
+                                <a class="dropdown-item" href="{%url 'register_view' %}">Register</a>
+                            </div>
+                        </li>
                     {% endif %}
                 </ul>
             </div>

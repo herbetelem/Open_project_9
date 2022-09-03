@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <h1 class="fw-bolder">
+                {% if request.resolver_match.view_name == 'edit_review' %}
+                Edit Review
+                {% else %}
+                Add Review
+                {% endif %}
+            </h1>
+            {% if request.resolver_match.view_name == 'edit_review' %}
+                <a href="{%url 'delete_review' review.id %}" class="btn btn-danger">Delete Review</a>
+            {% endif %}
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <form action="." method="post" Enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {% include "forms/edit_review.html"%}
+
+
+                    <div class="row mb-5 mt-5">
+                        <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
