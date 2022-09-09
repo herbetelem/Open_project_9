@@ -26,7 +26,7 @@ Si vous souhaitez lancer le projet pour pouvoir parcourir le site, executer la c
 
 ## Functional
 
-decrire le fonctionnement du site
+Ce projet a pour but de permettre a des utilisateur de pouvoir demander ou créer des critique de livre, et aussi de pouvoir les parcourirs
 
 ## Bonus
 
