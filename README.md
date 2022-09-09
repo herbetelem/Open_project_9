@@ -45,4 +45,4 @@ Be careful though, in the potential case where the average of the percentages is
 
 ## Author
 
-* **Hadrien Herbet** _alias_ [@herbetelem](https://github.com/herbetelem)
+* **Hadrien Louppe Herbet** _alias_ [@herbetelem](https://github.com/herbetelem)
