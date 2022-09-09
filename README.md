@@ -6,10 +6,8 @@ This project aims to create an algorithm that will seek to find among a list of 
 
 ### library and tools
 
-- https://github.com/PyCQA/mccabe Mccabe
-- https://pandas.pydata.org/ Pandas
-- https://numpy.org/ Numpy
-- https://docs.python.org/fr/3/library/itertools.html Itertools
+- https://www.djangoproject.com/ Django
+- https://pypi.org/project/Pillow/ Pillow
 
 
 ### Prerequisites
