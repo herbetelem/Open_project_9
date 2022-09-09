@@ -22,14 +22,17 @@ class Review(models.Model):
         name = name[:128]
         return name
 
-class AskReview(models.Model):
-    ticket = models.ForeignKey("Ticket", on_delete=models.CASCADE)
-    review = models.ForeignKey("Review", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    time_created = models.DateTimeField(auto_now_add=True)
+    def flux_ticket(self):
+        return False
 
-    def __str__(self):
-        return self.user.username + ': ' + self.ticket.title
+# class AskReview(models.Model):
+#     ticket = models.ForeignKey("Ticket", on_delete=models.CASCADE)
+#     review = models.ForeignKey("Review", on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     time_created = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return self.user.username + ': ' + self.ticket.title
 
 class Ticket(models.Model):
     title = models.CharField(max_length=128)
@@ -38,6 +41,10 @@ class Ticket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True, upload_to='media/img')
     time_created = models.DateTimeField(auto_now_add=True)
+    review_done = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+    
+    def flux_ticket(self):
+        return True

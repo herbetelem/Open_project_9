@@ -14,5 +14,55 @@
         <a class="btn btn-primary btn-lg col-5" href="{% url 'add_ticket' %}">Ask a Review</a>
         <a class="btn btn-primary btn-lg col-5 offset-2" href="{%url 'add_review' %}">Create a Review</a>
     </div>
+    <div class="row mt-5">
+        {% for ticket in flux %}
+            <div class="col-lg-12">
+                <!-- Blog post-->
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        {% if ticket.flux_ticket %}
+                            <div class="card mb-4 bg-primary">
+                                <h3 class="card-header">Book</h3>
+                                <div class="card-body ticket_box">
+                                    <div class="col-7 offset-1">
+                                        <h2 class="card-title h5">{{ticket.title}}</h2>
+                                        <p>Author: <a href="{% url 'author_detail' ticket.user.id %}">{{ticket.user.username}}</a></p>
+                                        <figcaption class="blockquote-footer">{{ticket.time_created}}</figcaption>
+                                        <p class="col-10">{{ticket.description|truncatechars:820}}</p>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <a class="btn btn-secondary" href="{% url 'ticket_detail' ticket.id %}">Read</a>
+                                            </div>
+                                            {% if ticket.review_done == False %}
+                                            <div class="col-4">
+                                                <a class="btn btn-secondary" href="{% url 'request_review' ticket.id %}">Create a Review</a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-4 section_image">
+                                        <img src="../{{ticket.image}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="card mb-4 bg-secondary">
+                                <h3 class="card-header">Review: <a href="{% url 'ticket_detail' ticket.ticket.id %}">{{ticket.ticket.title}}</a></h3>
+                                <div class="card-body ticket_box">
+                                    <div class="col-10 offset-1">
+                                        <h2 class="card-title h5">{{ticket.headline}}</h2>
+                                        <p>Author: <a href="{% url 'author_detail' ticket.user.id %}">{{ticket.user.username}}</a></p>
+                                        <figcaption class="blockquote-footer">{{ticket.time_created}}</figcaption>
+                                        <p class="col-10">{{ticket.body|truncatechars:820}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

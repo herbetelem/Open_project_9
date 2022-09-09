@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <h1 class="fw-bolder">
+                Anser Review
+            </h1>
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="card mb-4 bg-primary">
+                    <h3 class="card-header">Book</h3>
+                    <div class="card-body ticket_box">
+                        <div class="col-7 offset-1">
+                            <h2 class="card-title h5">{{ticket.title}}</h2>
+                            <p>Author: <a href="{% url 'author_detail' ticket.user.id %}">{{ticket.user.username}}</a></p>
+                            <figcaption class="blockquote-footer">{{ticket.time_created}}</figcaption>
+                            <p class="col-10">{{ticket.description|truncatechars:420}}</p>
+                        </div>
+                        <div class="col-4 section_image">
+                            <img src="../../../{{ticket.image}}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <form action="." method="post" Enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {% include "forms/review_requested.html"%}
+
+
+                    <div class="row mb-5 mt-5">
+                        <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            
+        </div>
+    </div>
+{% endblock content %}

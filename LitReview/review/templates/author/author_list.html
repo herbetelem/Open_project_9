@@ -26,19 +26,21 @@
                             </thead>
                             <tbody>
                                 {% for author in authors %}
-                                <tr>
-                                    <td>{{author.username}}</th>
-                                    <td>{{author.nb_post_review}}</td>
-                                    <td>{{author.moy_review}}</td>
-                                    <td>
-                                        <a href="{% url 'author_detail' author.id %}" class="btn btn-secondary">Read</a>
-                                        {% if author.subscribe %}
-                                        <a href="#" class="btn btn-secondary disabled">Subscribe</a>
-                                        {% else %}
-                                        <a href="{% url 'subscribe_link' author.id %}" class="btn btn-secondary">Subscribe</a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
+                                    {% if author != user %}
+                                        <tr>
+                                            <td>{{author.username}}</th>
+                                            <td>{{author.nb_post_review}}</td>
+                                            <td>{{author.moy_review}}</td>
+                                            <td>
+                                                <a href="{% url 'author_detail' author.id %}" class="btn btn-secondary">Read</a>
+                                                {% if author.subscribe %}
+                                                <a href="#" class="btn btn-secondary disabled">Subscribe</a>
+                                                {% else %}
+                                                <a href="{% url 'subscribe_link' author.id %}" class="btn btn-primary">Subscribe</a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             </tbody>
                         </table>

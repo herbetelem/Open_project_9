@@ -13,6 +13,9 @@
     {% if request.resolver_match.view_name == 'home_page' %}
         <link rel="stylesheet" href="{% static 'css/home.css' %}">
     {% endif %}
+    {% if request.resolver_match.view_name == 'my_post' %}
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endif %}
     {% if request.resolver_match.view_name == 'ticket_list' %}
         <link rel="stylesheet" href="{% static 'css/book.css' %}">
     {% endif %}
@@ -31,8 +34,9 @@
     {% if request.resolver_match.view_name == 'add_review' %}
         <link rel="stylesheet" href="{% static 'css/add_review.css' %}">
     {% endif %}
-    {% if request.resolver_match.view_name == 'edit_review' %}
+    {% if request.resolver_match.view_name == 'request_review' %}
         <link rel="stylesheet" href="{% static 'css/add_review.css' %}">
+        <link rel="stylesheet" href="{% static 'css/book.css' %}">
     {% endif %}
     {% if user.is_authenticated %}
         <link href="https://bootswatch.com/5/{{theme.theme}}/bootstrap.min.css" rel="stylesheet">
@@ -54,9 +58,15 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{%url 'home_page' %}">Home</a></li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{%url 'review_list' %}">Review</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{%url 'ticket_list' %}">Books</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{%url 'author_list' %}">Author</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'my_post' %}">My Posts</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">All Content</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{%url 'review_list' %}">All Reviews</a>
+                                <a class="dropdown-item" href="{%url 'ticket_list' %}">All Books</a>
+                                <a class="dropdown-item" href="{%url 'author_list' %}">All Author</a>
+                            </div>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}</a>
                             <div class="dropdown-menu">

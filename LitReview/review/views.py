@@ -10,6 +10,7 @@ from accounts.models import UserTheme
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
+from itertools import chain
 
 
 
@@ -18,6 +19,42 @@ from django.forms import inlineformset_factory
 def home_page(request):
     context = {}
     if request.user.is_authenticated:
+        followings = UserFollows.objects.filter(user=request.user)
+        posts = Ticket.objects.filter(user=request.user)
+        for follow in followings:    
+            posts = sorted(
+                chain(posts, Ticket.objects.filter(user=follow.followed_user)), 
+                key=lambda post: post.time_created, 
+                reverse=True
+            )
+        reviews = Review.objects.filter(user=request.user)
+        for follow in followings:    
+            reviews = sorted(
+                chain(reviews, Review.objects.filter(user=follow.followed_user)), 
+                key=lambda post: post.time_created, 
+                reverse=True
+            )
+        posts = sorted(
+                chain(reviews, posts), 
+                key=lambda post: post.time_created, 
+                reverse=True
+            )
+        context['flux'] = posts
+        context['theme'] = get_object_or_404(UserTheme, user=request.user)
+        return render(request, 'global/flux.html', context)
+    return render(request, 'global/home.html', context)
+
+def my_post(request):
+    context = {}
+    if request.user.is_authenticated:
+        posts = Ticket.objects.filter(user=request.user)
+        reviews = Review.objects.filter(user=request.user)
+        posts = sorted(
+                chain(reviews, posts), 
+                key=lambda post: post.time_created, 
+                reverse=True
+            )
+        context['flux'] = posts
         context['theme'] = get_object_or_404(UserTheme, user=request.user)
         return render(request, 'global/flux.html', context)
     return render(request, 'global/home.html', context)
@@ -67,6 +104,7 @@ def unsubscribe_link(request, id: int):
     target_follow.delete()
     return redirect("subscription_page", request.user.id)
 
+
 # View about Review
 @login_required(login_url='/login/')
 def review_list(request):
@@ -94,7 +132,8 @@ def add_review(request):
             author=request.POST.get('author'), 
             description=request.POST.get('description'), 
             image=request.FILES.get('image'), 
-            user=request.user)
+            user=request.user,
+            review_done=True)
         Review.objects.create(
             rating=request.POST['review_set-0-rating'], 
             body=request.POST['review_set-0-body'], 
@@ -102,9 +141,9 @@ def add_review(request):
             user=request.user, 
             ticket=ticket)
         context = {'theme' : get_object_or_404(UserTheme, user=request.user)}
-        return redirect('global/flux.html', context)
+        return redirect('home_page')
 
-        
+
     FormReview = inlineformset_factory(parent_model=Ticket, model=Review, fields=('headline', 'rating', 'body'), form=ReviewsForm, can_delete=False)
     form_review = FormReview()
     context = {
@@ -113,6 +152,27 @@ def add_review(request):
     }
     context['theme'] = get_object_or_404(UserTheme, user=request.user)
     return render(request, 'review/add_review.html', context)
+
+@login_required(login_url='/login/')
+def request_review(request, id):
+    ticket = get_object_or_404(Ticket, id=id)
+    if request.method == "POST":
+        form = ReviewsForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.ticket = ticket
+            new_form.save()
+            ticket.review_done = True
+            ticket.save()
+            return redirect('home_page')
+    form_review = ReviewsForm()
+    context = {
+        'ticket': ticket,
+        'form_review': form_review,
+    }
+    context['theme'] = get_object_or_404(UserTheme, user=request.user)
+    return render(request, 'review/review_requested.html', context)
 
 @login_required(login_url='/login/')
 def edit_review(request, id):
@@ -138,6 +198,8 @@ def edit_review(request, id):
 @login_required(login_url='/login/')
 def delete_review(request, id):
     review = get_object_or_404(Review, id=id)
+    review.ticket.review_done = False
+    review.ticket.save()
     if review.user == request.user:
         review.delete()
     return redirect('review_list')
@@ -210,6 +272,7 @@ def delete_ticket(request, id):
     if ticket.user == request.user:
         ticket.delete()
     return redirect('ticket_list')
+
 
 # View about Author
 @login_required(login_url='/login/')
