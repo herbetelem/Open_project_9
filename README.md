@@ -14,7 +14,7 @@ This project aims to create an algorithm that will seek to find among a list of 
 
 Avoir python sur son OS, et créer un environement virtuel avant de faire la suite
 
-you have to install the requirements with the command ``pip3 install -r requirements.txt``, and your files to inspect must be in excel and have line 1 in the header, then line 2 list the actions
+you have to install the requirements with the command ``pip3 install -r requirements.txt``
 
 
 ## Launching
