@@ -28,7 +28,7 @@ Si vous souhaitez lancer le projet pour pouvoir parcourir le site, executer la c
 
 decrire le fonctionnement du site
 
-## Warning
+## Bonus
 
 bonus
 
