@@ -19,9 +19,9 @@ you have to install the requirements with the command ``pip3 install -r requirem
 
 ## Launching
 
-If you want to run the bruteforce code, use the ``python3 bruteforce.py`` command, making sure at line 44 that you are going to inspect the correct excel file of actions to prospect
+Une fois le projet bien configuré, executer la commande ``python3 manage.py makemigration`` puis ``python3 manage.py migrate`` afin d'installer la base de donnée.
 
-If you want to run the optimized code, use the ``python3 optimized.py`` command, making sure on line 25 that you are going to inspect the correct excel file of actions to prospect
+Si vous souhaitez lancer le projet pour pouvoir parcourir le site, executer la commande ``python3 manage.py runserver``
 
 
 ## Functional
