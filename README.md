@@ -19,7 +19,7 @@ you have to install the requirements with the command ``pip3 install -r requirem
 
 ## Launching
 
-Once the project is well configured, execute the command ``python3 manage.py makemigration`` then ``python3 manage.py migrate`` in order to install the database.
+Once the project is well configured, execute the command ``python3 manage.py makemigrations`` then ``python3 manage.py migrate`` in order to install the database.
 
 If you want to launch the project to be able to browse the site, run the command ``python3 manage.py runserver``
 
